@@ -18,7 +18,7 @@ const schema = yup.object({
   firstName: yup.string().required("Имя обязательное поле!"), //ТЕСТ СООБЩЕНИЮ
   lastName: yup.string().required("Фамилия обязательное поле!"),
   email: yup.string().email().required(),
-  age: yup.number().positive().integer().required().max(3),
+  age: yup.number().positive().integer().required(),
   password: yup.string().min(8).max(15).required(),
   confirmPassword: yup.string().oneOf([yup.ref("password"), null]),
 }).required();
@@ -41,13 +41,17 @@ export default function App() {
         <div className="title">Sign Up</div>
         <div className="inputs">
           <form onSubmit={handleSubmit(onSubmit)}>
+
+            {/* FIRSTNAME */}
             <input
-              {...register('email')}
+              {...register('firstName')}
               type="text"
               name="firstName"
               placeholder="First Name..."
             />
             <p className='errors'> {errors.firstName?.message} </p>
+
+            {/* LASTNAME */}
             <input
               {...register('lastName')}
               type="text"
@@ -55,6 +59,8 @@ export default function App() {
               placeholder="Last Name..."
             />
             <p className='errors'> {errors.lastName?.message} </p>
+
+            {/* EMAIL */}
             <input
               {...register('email')}
               type="text"
@@ -62,8 +68,13 @@ export default function App() {
               placeholder="Email..."
             />
             <p className='errors'> {errors.email?.message} </p>
+
             {/* AGE */}
-            <input type="text" name="age" placeholder="Age..." />
+            <input 
+            {...register('age')}
+            type="text" 
+            name="age" 
+            placeholder="Age..." />
             <p className='errors'> {errors.age?.message} </p>
             
             {/* PASSWORD */}
